@@ -6,7 +6,27 @@
     @include('auth.login')
 </aside>
 
-<div class="container">
-    <h1>Main</h1>
-</div>
+<section class="main_container">
+    <ul class="contents_list">
+        @foreach($contents as $content)
+
+        <li class="contents_container">
+            @if (Str::startsWith($content->contents_info, 'https://www.youtube.com/'))
+            <div class="contents">
+                <iframe class="thumbnail" src={{$content->contents_info}}></iframe>
+                <a class="contents_title" href="#">{{$content->title}}</a>
+                <a class="user_name" href="#">{{$content->name}}</a>
+            </div>
+            @else
+            <div class="contents">
+                <img class="thumbnail" src={{$content->contents_info}} alt="image_url">
+                <a class="contents_title" href="#">{{$content->title}}</a>
+                <a class="user_name" href="#">{{$content->name}}</a>
+            </div>
+            @endif
+        </li>
+
+        @endforeach
+    </ul>
+</section>
 @endsection

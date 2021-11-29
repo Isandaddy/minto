@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -23,6 +24,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $contents = DB::table('contents')
+            ->leftJoin('users', 'contents.user_id', '=', 'users.id')
+            ->orderBy('contents.id', 'desc')
+            ->get();
+        // dd($contents);
+        return view('home', ['contents' => $contents]);
     }
 }
