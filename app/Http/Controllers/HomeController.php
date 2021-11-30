@@ -18,14 +18,14 @@ class HomeController extends Controller
     }
 
     /**
-     * Show the application dashboard.
+     * indexページを表示
      *
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @return view
      */
     public function index()
     {
-        $contents = DB::table('contents')
-            ->leftJoin('users', 'contents.user_id', '=', 'users.id')
+        $contents = DB::table('users')
+            ->leftJoin('contents', 'users.id', '=', 'contents.user_id')
             ->orderBy('contents.id', 'desc')
             ->get();
         // dd($contents);

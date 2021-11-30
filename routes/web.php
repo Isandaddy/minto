@@ -19,4 +19,7 @@ Route::get('/', 'HomeController@index')->name('home');
 
 Route::post('/login', 'Auth\LoginController@login')->name('login');
 
-Route::get('register', 'Auth\RegisterController@index')->name('register');
+Route::get('/register', 'Auth\RegisterController@index')->name('register');
+
+// contentsの詳細画面を表示
+Route::get('/contents/{id}', 'ContentsController@showDetail')->name('detail');
