@@ -7,6 +7,7 @@
 </aside>
 
 <section class="main_container">
+    <h2 class="select_user">{{$user->name}}</h2>
     <ul class="contents_list">
         @foreach($contents as $content)
 
@@ -15,13 +16,13 @@
             <div class="contents">
                 <iframe class="thumbnail" src={{$content->contents_info}}></iframe>
                 <a class="contents_title" href="/contents/{{ $content->id }}">{{$content->title}}</a>
-                <a class="user_name" href="/users/{{$content->user_id}}">{{$content->name}}</a>
+                <a class="user_name" href="#">{{$content->name}}</a>
             </div>
             @else
             <div class="contents">
                 <img class="thumbnail" src={{$content->contents_info}} alt="image_url">
                 <a class="contents_title" href="/contents/{{ $content->id }}">{{$content->title}}</a>
-                <a class="user_name" href="/users/{{$content->user_id}}">{{$content->name}}</a>
+                <a class="user_name" href="#">{{$content->name}}</a>
             </div>
             @endif
         </li>

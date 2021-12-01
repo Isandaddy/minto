@@ -37,13 +37,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function images()
+    /**
+     * user_idにマッチしたユーザーを返す
+     * @param int id
+     * @return object
+     */
+    public function getUserByUserId($id)
     {
-        return $this->hasMany('App\Image');
-    }
-
-    public function videos()
-    {
-        return $this->hasMany('App\Video');
+        return User::find($id);
     }
 }

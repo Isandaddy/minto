@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Contents;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use App\User;
 
 class HomeController extends Controller
 {
@@ -12,9 +13,9 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Contents $contents)
     {
-        //$this->middleware('auth');
+        $this->contents = $contents;
     }
 
     /**
@@ -24,11 +25,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $contents = DB::table('users')
-            ->leftJoin('contents', 'users.id', '=', 'contents.user_id')
-            ->orderBy('contents.id', 'desc')
-            ->get();
-        // dd($contents);
+        $contents = $this->contents->getAllContents();
+
         return view('home', ['contents' => $contents]);
     }
 }

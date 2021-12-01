@@ -23,3 +23,6 @@ Route::get('/register', 'Auth\RegisterController@index')->name('register');
 
 // contentsの詳細画面を表示
 Route::get('/contents/{id}', 'ContentsController@showDetail')->name('detail');
+
+// user選択画面を表示
+Route::get('/users/{id}', 'UserController@showUserList')->name('user');

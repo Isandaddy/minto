@@ -23,7 +23,6 @@ body {
 
 .main {
     display: flex;
-    justify-content: space-around;
     background-color: #fffeec;
     height: 100vh;
     align-content: center;
@@ -58,6 +57,7 @@ body {
     padding: 1rem;
     flex-wrap: wrap;
     margin: 1rem 0;
+    align-content: flex-start;
 }
 
 .contents_list {
@@ -65,11 +65,12 @@ body {
     list-style: none;
     padding-left: 0;
     margin: 1rem;
+    width: 100%;
 }
 
 .contents_container {
     border: 1px solid lightgray;
-    width: 30%;
+    width: 25%;
     height: 50vh;
     margin-right: 1rem;
 }
@@ -94,6 +95,10 @@ body {
     text-decoration: none;
 }
 
+.select_user {
+    width: 100%;
+    margin: 0;
+}
 /* 詳細画面のところ */
 
 .detail_container {
