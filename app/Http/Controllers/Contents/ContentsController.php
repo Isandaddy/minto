@@ -51,7 +51,7 @@ class ContentsController extends Controller
      * ログインしたユーザーの画像URLをダウンロードしてデータベースとサーバー内に保存
      * @return redirect
      */
-    public function imageStore($id)
+    public function imageUrlStore($id)
     {
 
         $values = request(['url', 'title', 'comment']);
@@ -71,9 +71,47 @@ class ContentsController extends Controller
                 DB::commit();
                 return redirect('/users/' . $id);
             } catch (Exception $e) {
-                //delete if no db things........
-                //Storage::delete('/public', $file);
+
                 File::delete('../storage/app/public/' . $filename);
+                DB::rollback();
+            }
+        }
+    }
+
+    /**
+     * ログインしたユーザーの画像アップロードページを表示
+     * @return view
+     */
+    public function showImageUpload()
+    {
+        return view('contents.imageUpload');
+    }
+
+    /**
+     * ログインしたユーザーの画像ファイルをデータベースとサーバー内に保存
+     * @return redirect
+     */
+    public function imageFileStore(Request $request, $id)
+    {
+
+        $values = $request->all();
+        $image_file = $request->file('image');
+        //dd($image_file);
+
+        if ($request->hasFile('image')) {
+            $path = \Storage::put('/public', $image_file);
+            $path = explode('/', $path);
+
+            DB::beginTransaction();
+            try {
+
+                $this->contents->uploadContents($id, $values, $path[1]);
+
+                DB::commit();
+                return redirect('/users/' . $id);
+            } catch (Exception $e) {
+                Storage::delete('/public', $image_file);
+                //File::delete('../storage/app/public/' . $filename);
                 DB::rollback();
             }
         }

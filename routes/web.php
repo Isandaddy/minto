@@ -30,5 +30,11 @@ Route::get('/users/{id}', 'User\UserController@showUserList')->name('user');
 // ログインしたユーザーの画像投稿画面を表示
 Route::get('/contents/{id}/images/contribution', 'Contents\ContentsController@showImageContribution')->middleware('auth');
 
-// ログインしたユーザーの画像投稿
-Route::post('/contents/{id}/images/contribution', 'Contents\ContentsController@imageStore')->middleware('auth');
+// ログインしたユーザーの画像URLを投稿
+Route::post('/contents/{id}/images/contribution', 'Contents\ContentsController@imageUrlStore')->middleware('auth');
+
+// ログインしたユーザーの画像アップロード投稿画面を表示
+Route::get('/contents/{id}/images/upload', 'Contents\ContentsController@showImageUpload')->middleware('auth');
+
+// ログインしたユーザーの画像ファイルを投稿
+Route::post('/contents/{id}/images/upload', 'Contents\ContentsController@imageFileStore')->middleware('auth');

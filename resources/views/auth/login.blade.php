@@ -50,7 +50,7 @@
     @auth
 
     <div class="auth__title">{{Auth::user()->name}}さんようこそ！</div>
-    <button>画像をアップロード</button>
+    <button><a href="/contents/{{Auth::user()->id}}/images/upload">画像をアップロード</a></button>
     <button><a href="/contents/{{Auth::user()->id}}/images/contribution">画像を投稿</a></button>
     <button type="submit">動画を投稿</button>
     <!-- <a href="{{ route('logout') }}" onclick="event.preventDefault();
