@@ -20,7 +20,7 @@
     @else
 
     <div class="contents_detail_container">
-        <img class="contents_detail" src={{$contents->contents_info}} alt="image_url">
+        <img class="contents_detail" src="{{'/storage/' . $contents->contents_info}}" alt="image_url">
     </div>
     <div class="contents_meta">
         <p>登校日 : {{$contents->created_at}}</p>

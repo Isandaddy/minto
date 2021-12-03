@@ -22,7 +22,13 @@ Route::post('/login', 'Auth\LoginController@login')->name('login');
 Route::get('/register', 'Auth\RegisterController@index')->name('register');
 
 // contentsの詳細画面を表示
-Route::get('/contents/{id}', 'ContentsController@showDetail')->name('detail');
+Route::get('/contents/{id}', 'Contents\ContentsController@showDetail')->name('detail');
 
 // user選択画面を表示
-Route::get('/users/{id}', 'UserController@showUserList')->name('user');
+Route::get('/users/{id}', 'User\UserController@showUserList')->name('user');
+
+// ログインしたユーザーの画像投稿画面を表示
+Route::get('/contents/{id}/images/contribution', 'Contents\ContentsController@showImageContribution')->middleware('auth');
+
+// ログインしたユーザーの画像投稿
+Route::post('/contents/{id}/images/contribution', 'Contents\ContentsController@imageStore')->middleware('auth');

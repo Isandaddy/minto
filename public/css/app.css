@@ -48,6 +48,16 @@ body {
     color: #86cecb;
 }
 
+/* ユーザー登録画面 */
+
+.register_container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+}
+
 /* 初画面のところ */
 
 .main_container {
