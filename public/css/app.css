@@ -136,8 +136,10 @@ a {
 
 /* 画像投稿ページ */
 /* 画像アップロードページ */
+/* 動画投稿ページ */
 .image-contribution-container,
-.image-upload-container {
+.image-upload-container,
+.video-contribution-container {
     width: 100%;
     display: flex;
     flex-direction: column;

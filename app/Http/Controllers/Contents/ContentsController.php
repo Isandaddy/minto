@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use App\Contents;
+use App\Services\ContentService;
 
 class ContentsController extends Controller
 {
@@ -15,9 +16,10 @@ class ContentsController extends Controller
      *
      * @return void
      */
-    public function __construct(Contents $contents)
+    public function __construct(Contents $contents, ContentService $contents_service)
     {
         $this->contents = $contents;
+        $this->contents_service = $contents_service;
     }
 
     /**
@@ -60,7 +62,7 @@ class ContentsController extends Controller
 
         $file = file_get_contents($values['url']);
         $save = file_put_contents('../storage/app/public/' . $filename, $file, FILE_APPEND);
-        //$path = Storage::put('/public', $file);
+
         if ($save) {
 
             DB::beginTransaction();
@@ -76,6 +78,8 @@ class ContentsController extends Controller
                 DB::rollback();
             }
         }
+
+        return response($filename, 201);
     }
 
     /**
@@ -96,7 +100,6 @@ class ContentsController extends Controller
 
         $values = $request->all();
         $image_file = $request->file('image');
-        //dd($image_file);
 
         if ($request->hasFile('image')) {
             $path = \Storage::put('/public', $image_file);
@@ -111,9 +114,43 @@ class ContentsController extends Controller
                 return redirect('/users/' . $id);
             } catch (Exception $e) {
                 Storage::delete('/public', $image_file);
-                //File::delete('../storage/app/public/' . $filename);
+
                 DB::rollback();
             }
         }
+        return response($image_file, 201);
+    }
+
+    /**
+     * ログインしたユーザーの画像投稿画面を表示
+     * @return view
+     */
+    public function showVideoContribution()
+    {
+        return view('contents.videoContribution');
+    }
+
+    /**
+     * ログインしたユーザーの画像URLをダウンロードしてデータベースとサーバー内に保存
+     * @return redirect
+     */
+    public function videoUrlStore($id)
+    {
+
+        $values = request(['url', 'title', 'comment']);
+        $embed_url = $this->contents_service->convertToEmbeddedYouTubeUrl($values['url']);
+
+        DB::beginTransaction();
+        try {
+
+            $this->contents->uploadContents($id, $values, $embed_url);
+
+            DB::commit();
+            return redirect('/users/' . $id);
+        } catch (Exception $e) {
+
+            DB::rollback();
+        }
+        return response($embed_url, 201);
     }
 }

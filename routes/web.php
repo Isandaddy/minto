@@ -38,3 +38,9 @@ Route::get('/contents/{id}/images/upload', 'Contents\ContentsController@showImag
 
 // ログインしたユーザーの画像ファイルを投稿
 Route::post('/contents/{id}/images/upload', 'Contents\ContentsController@imageFileStore')->middleware('auth');
+
+// ログインしたユーザーの画像アップロード投稿画面を表示
+Route::get('/contents/{id}/videos/contribution', 'Contents\ContentsController@showVideoContribution')->middleware('auth');
+
+// ログインしたユーザーの画像ファイルを投稿
+Route::post('/contents/{id}/videos/contribution', 'Contents\ContentsController@videoUrlStore')->middleware('auth');
