@@ -21,11 +21,11 @@ Route::post('/login', 'Auth\LoginController@login')->name('login');
 
 Route::get('/register', 'Auth\RegisterController@index')->name('register');
 
-// contentsの詳細画面を表示
-Route::get('/contents/{id}', 'Contents\ContentsController@showDetail')->name('detail');
-
 // user選択画面を表示
 Route::get('/users/{id}', 'User\UserController@showUserList')->name('user');
+
+// contentsの詳細画面を表示
+Route::get('/contents/{id}', 'Contents\ContentsController@showDetail')->name('detail');
 
 // ログインしたユーザーの画像投稿画面を表示
 Route::get('/contents/{id}/images/contribution', 'Contents\ContentsController@showImageContribution')->middleware('auth');

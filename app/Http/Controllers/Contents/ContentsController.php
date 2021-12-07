@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use App\Contents;
+//use App\Http\Requests\StoreContents;
 use App\Services\ContentService;
 
 class ContentsController extends Controller
@@ -52,8 +53,13 @@ class ContentsController extends Controller
      * ログインしたユーザーの画像URLをダウンロードしてデータベースとサーバー内に保存
      * @return redirect
      */
-    public function imageUrlStore($id)
+    public function imageUrlStore(Request $request, $id)
     {
+        $request->validate([
+            'title' => 'required|max:225',
+            'comment' => 'required|max:225',
+            'url' => 'required'
+        ]);
 
         $values = request(['url', 'title', 'comment']);
         $filename =  $values['title'] . '.jpg';
@@ -94,13 +100,18 @@ class ContentsController extends Controller
      */
     public function imageFileStore(Request $request, $id)
     {
-
+        //フォームから来るデータの有効性を検査
+        $request->validate([
+            'title' => 'required|max:225',
+            'comment' => 'required|max:225',
+            'image' => 'required|file|mimes:jpg,jpeg,png,gif',
+        ]);
         $values = $request->all();
         $image_file = $request->file('image');
 
         if ($request->hasFile('image')) {
 
-            $file_name = $this->contents_service->saveImageFile($image_file);
+            $file_name = $this->contents_service->saveImageFile($image_file, $values['title']);
 
             DB::beginTransaction();
             try {
@@ -132,11 +143,20 @@ class ContentsController extends Controller
      * ログインしたユーザーの画像URLをダウンロードしてデータベースとサーバー内に保存
      * @return redirect
      */
-    public function videoUrlStore($id)
+    public function videoUrlStore(Request $request, $id)
     {
+        //フォームから来るデータの有効性を検査
+        $request->validate([
+            'title' => 'required|max:225',
+            'comment' => 'required|max:225',
+            'youtubeUrl' => [
+                'required',
+                'regex:/(http:|https:)?(\/\/)?(www\.)?(youtube.com|youtu.be)\/(watch|embed)?(\?v=|\/)?(\S+)?/'
+            ],
+        ]);
+        $values = request(['title', 'comment', 'youtubeUrl']);
 
-        $values = request(['url', 'title', 'comment']);
-        $embed_url = $this->contents_service->convertToEmbeddedYouTubeUrl($values['url']);
+        $embed_url = $this->contents_service->convertToEmbeddedYouTubeUrl($values['youtubeUrl']);
 
         DB::beginTransaction();
         try {

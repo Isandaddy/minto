@@ -25,9 +25,10 @@ class ContentService
      * @param object $image_file
      * @return string
      */
-    public function saveImageFile($image_file)
+    public function saveImageFile($image_file, $title)
     {
-        $path = \Storage::put('/public', $image_file);
+        $extension = $image_file->extension();
+        $path = \Storage::putFileAs('/public', $image_file, $title . '.' . $extension);
         $file = explode('/', $path);
         $file_name = $file[1];
 

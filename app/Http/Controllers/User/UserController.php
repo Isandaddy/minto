@@ -6,14 +6,16 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
 use App\Contents;
+use App\Services\UserService;
 
 class UserController extends Controller
 {
 
-    public function __construct(User $user, Contents $contents)
+    public function __construct(User $user, Contents $contents, UserService $user_service)
     {
         $this->user = $user;
         $this->contents = $contents;
+        $this->user_service = $user_service;
     }
 
     /**
@@ -23,6 +25,10 @@ class UserController extends Controller
      */
     public function showUserList($id)
     {
+        //登録してないユーザーが接続しようとするとホームに戻る
+        if (!$this->user_service->userVaidation($id)) {
+            return redirect(route('home'));
+        }
         $user = $this->user->getUserByUserId($id);
         $user_contents = $this->contents->getContentsByUserId($id);
 
