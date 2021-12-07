@@ -2,8 +2,38 @@
 
 namespace App\Services;
 
+use Illuminate\Support\Facades\Storage;
+
 class ContentService
 {
+
+    /**
+     * imageのurlを受け取ってstorageに格納し、結果を返す
+     * @param array $values
+     * @return boolean
+     */
+    public function saveImageUrl($values, $file_name)
+    {
+        $file = file_get_contents($values['url']);
+        $save = file_put_contents('../storage/app/public/' . $file_name, $file, FILE_APPEND);
+
+        return $save;
+    }
+
+    /**
+     * imageファイルを受け取ってstorageに格納し、ファイル名を返す
+     * @param object $image_file
+     * @return string
+     */
+    public function saveImageFile($image_file)
+    {
+        $path = \Storage::put('/public', $image_file);
+        $file = explode('/', $path);
+        $file_name = $file[1];
+
+        return $file_name;
+    }
+
     /**
      * youtubeのurlを受け取ってembedUrlに変えて返す
      * @param int $url

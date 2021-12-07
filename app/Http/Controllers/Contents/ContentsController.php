@@ -48,7 +48,6 @@ class ContentsController extends Controller
         return view('contents.imageContribution');
     }
 
-
     /**
      * ログインしたユーザーの画像URLをダウンロードしてデータベースとサーバー内に保存
      * @return redirect
@@ -57,11 +56,8 @@ class ContentsController extends Controller
     {
 
         $values = request(['url', 'title', 'comment']);
-
         $filename =  $values['title'] . '.jpg';
-
-        $file = file_get_contents($values['url']);
-        $save = file_put_contents('../storage/app/public/' . $filename, $file, FILE_APPEND);
+        $save = $this->contents_service->saveImageUrl($values, $filename);
 
         if ($save) {
 
@@ -76,6 +72,7 @@ class ContentsController extends Controller
 
                 File::delete('../storage/app/public/' . $filename);
                 DB::rollback();
+                throw $e;
             }
         }
 
@@ -102,13 +99,13 @@ class ContentsController extends Controller
         $image_file = $request->file('image');
 
         if ($request->hasFile('image')) {
-            $path = \Storage::put('/public', $image_file);
-            $path = explode('/', $path);
+
+            $file_name = $this->contents_service->saveImageFile($image_file);
 
             DB::beginTransaction();
             try {
 
-                $this->contents->uploadContents($id, $values, $path[1]);
+                $this->contents->uploadContents($id, $values, $file_name);
 
                 DB::commit();
                 return redirect('/users/' . $id);
@@ -116,6 +113,7 @@ class ContentsController extends Controller
                 Storage::delete('/public', $image_file);
 
                 DB::rollback();
+                throw $e;
             }
         }
         return response($image_file, 201);
@@ -150,6 +148,7 @@ class ContentsController extends Controller
         } catch (Exception $e) {
 
             DB::rollback();
+            throw $e;
         }
         return response($embed_url, 201);
     }
