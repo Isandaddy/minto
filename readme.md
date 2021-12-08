@@ -21,7 +21,9 @@
 ```
 php artisan serve
 ```
+## Screen
 
+<img width="1896" alt="Screen Shot 2021-12-08 at 22 00 41" src="https://user-images.githubusercontent.com/40736706/145212936-3a382b93-9091-4a7d-80e9-63d60049cc12.png" width="200" height="300">
 
 ## 機能
 
@@ -119,6 +121,8 @@ Controller --> Service
 View --Form Input Data--> Controller
 DB --> Controller
 ```
+<img width="838" alt="Screen Shot 2021-12-08 at 21 55 31" src="https://user-images.githubusercontent.com/40736706/145211944-e535a4d3-c19f-40a6-a70f-112854fc7a0c.png">
+
 ## ER図
 ```mermaid
 erDiagram  
@@ -143,6 +147,8 @@ erDiagram
  date updated_at
  }  
  ```
+ <img width="149" alt="Screen Shot 2021-12-08 at 21 58 06" src="https://user-images.githubusercontent.com/40736706/145212276-0eab28b1-4994-4238-82c9-9d48a2450a2a.png">
+ 
 ## 改修余地
 - フォームValidationロジックの分離(Form Request利用)
 - 個別のエラーページ作成
