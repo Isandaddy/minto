@@ -7,66 +7,153 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
 </p>
 
-## About Laravel
+# Minto Project
+みんなの投稿..略して**ミント**
+ユーザーがイメージファイルとyoutube動画を投稿する。
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## version
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- PHP : 7
+- Laravel : 5.8
+- MySQL
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Running the app
+```
+php artisan serve
+```
 
-## Learning Laravel
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## 機能
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+#### 【トップページ】​
+- 投稿時刻の新しい順に画像 
+-  動画を表示 ・全ユーザーのページへのリンクを表示 
+- ログインフォームを表示（別ページにフォームを作成しても可） 
+- 「ユーザー登録」をクリックで【ユーザー登録ページ】へ遷移 
+- ユーザー名をクリックで【ユーザーページ】へ遷移 
+- 画像タイトルをクリックで【画像ページ】へ遷移 
+- 動画タイトルをクリックで【動画ページ】へ遷移 
+- 動画はyoutubeの埋め込み動画
 
-## Laravel Sponsors
+#### 【ユーザーページ】​
+- 指定されたユーザーについて投稿時刻の新しい順に画像・動画を表示 
+- 「画像投稿サイト」をクリックで【トップページ】へ遷移 
+- 画像タイトルをクリックで【画像ページ】へ遷移 
+- 動画タイトルをクリックで【動画ページ】へ遷移
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+#### 【画像ページ】
+- 画像の詳細情報を表示
+ 
+#### ​【動画ページ】​
+- youtubeの埋め込み動画を表示 
+- 動画の詳細情報を表示
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[British Software Development](https://www.britishsoftware.co)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- [UserInsights](https://userinsights.com)
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
-- [User10](https://user10.com)
-- [Soumettre.fr](https://soumettre.fr/)
-- [CodeBrisk](https://codebrisk.com)
-- [1Forge](https://1forge.com)
-- [TECPRESSO](https://tecpresso.co.jp/)
-- [Runtime Converter](http://runtimeconverter.com/)
-- [WebL'Agence](https://weblagence.com/)
-- [Invoice Ninja](https://www.invoiceninja.com)
-- [iMi digital](https://www.imi-digital.de/)
-- [Earthlink](https://www.earthlink.ro/)
-- [Steadfast Collective](https://steadfastcollective.com/)
-- [We Are The Robots Inc.](https://watr.mx/)
-- [Understand.io](https://www.understand.io/)
-- [Abdel Elrafa](https://abdelelrafa.com)
-- [Hyper Host](https://hyper.host)
+#### 【ログイン中（各ページ共通）】
+- 「画像をアップロード」ボタンをクリックで【画像アップロードページ】へ遷移 
+- 「画像を投稿」ボタンをクリックで【画像投稿ページ】へ遷移 
+- 「動画を投稿」ボタンをクリックで【動画投稿ページ】へ遷移 
+- 「ログアウト」ボタンをクリックでログアウト状態へ遷移
 
-## Contributing
+#### 【画像アップロードページ】
+- ログイン中のユーザーアカウントに紐付けて画像情報をデータベースに格納
+- アップロードされたファイルはサーバ内に保存
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+#### 【画像投稿ページ】​
+- ログイン中のユーザーアカウントに紐付けて画像情報をデータベースに格納
+- 「画像URL」で指定されたファイルをweb上からダウンロードし、サーバ内に保存
 
-## Security Vulnerabilities
+#### 【動画投稿ページ】
+- ログイン中のユーザーアカウントに紐付けて動画情報をデータベースに格納
+- youtubeの動画はダウンロードしない。必要な情報をデータベースに格納し、このサイト上で埋め込み再生ができるようにする
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+#### 【ユーザー登録ページ】​
+- ユーザーアカウントをデータベースに格納
 
+## 特徴
+#### ユーザー登録と認証
+- ユーザー登録と認証はLaravelが提供してくれる事(middlewareなど)を利用
+#### MVC
+- ロジックを分離に気をつける(ServiceClass利用)
+- newの代わりにIoCコンテナもしくはファサードを使う(結合性を低くする)
+#### Storage
+- ファイルをサーバー内に保存時、Storage使用
+#### Validation
+- 入力フォームをyoutube形式か検査
+- ファイルがイメージ形式か検査
+#### エラー処理
+- URLのパラメタ検査でなるべく500帯のサーバ上エラーはないようにする。（ホームにリダイレクト）
+- Routeに登録してないパスでrequestの時、laravelで提供する404ページに遷移
+
+
+## Route:list
+
+|Domain  |Method   |URI    |Name  |Action  |Middleware  |
+|-----|------|------|------|------|------|
+|        | GET|HEAD | /                                 | home             | App\Http\Controllers\HomeController@index                              | web          |
+|        | GET|HEAD | api/user                          |                  | Closure                                                                | api,auth:api |
+|        | GET|HEAD | contents/{id}                     | detail           | App\Http\Controllers\Contents\ContentsController@showDetail            | web          |
+|        | POST     | contents/{id}/images/contribution |                  | App\Http\Controllers\Contents\ContentsController@imageUrlStore         | web,auth     |
+|        | GET|HEAD | contents/{id}/images/contribution |                  | App\Http\Controllers\Contents\ContentsController@showImageContribution | web,auth     |
+|        | POST     | contents/{id}/images/upload       |                  | App\Http\Controllers\Contents\ContentsController@imageFileStore        | web,auth     |
+|        | GET|HEAD | contents/{id}/images/upload       |                  | App\Http\Controllers\Contents\ContentsController@showImageUpload       | web,auth     |
+|        | GET|HEAD | contents/{id}/videos/contribution |                  | App\Http\Controllers\Contents\ContentsController@showVideoContribution | web,auth     |
+|        | POST     | contents/{id}/videos/contribution |                  | App\Http\Controllers\Contents\ContentsController@videoUrlStore         | web,auth     |
+|        | POST     | login                             | login            | App\Http\Controllers\Auth\LoginController@login                        | web,guest    |
+|        | GET|HEAD | login                             | login            | App\Http\Controllers\Auth\LoginController@showLoginForm                | web,guest    |
+|        | POST     | logout                            | logout           | App\Http\Controllers\Auth\LoginController@logout                       | web          |
+|        | POST     | password/email                    | password.email   | App\Http\Controllers\Auth\ForgotPasswordController@sendResetLinkEmail  | web,guest    |
+|        | GET|HEAD | password/reset                    | password.request | App\Http\Controllers\Auth\ForgotPasswordController@showLinkRequestForm | web,guest    |
+|        | POST     | password/reset                    | password.update  | App\Http\Controllers\Auth\ResetPasswordController@reset                | web,guest    |
+|        | GET|HEAD | password/reset/{token}            | password.reset   | App\Http\Controllers\Auth\ResetPasswordController@showResetForm        | web,guest    |
+|        | POST     | register                          |                  | App\Http\Controllers\Auth\RegisterController@register                  | web,guest    |
+|        | GET|HEAD | register                          | register         | App\Http\Controllers\Auth\RegisterController@index                     | web,guest    |
+|        | GET|HEAD | users/{id}                        | user             | App\Http\Controllers\User\UserController@showUserList                  | web          |
+
+
+## アーキテクチャーflow
+```mermaid
+graph LR
+DB((DB: User/Contents)) --> Controller(Cotroller: Home/User/Contents...) --> View[View:user/contents...]
+Service(Service: User/Contents) --> Controller
+Controller --> Service
+View --Form Input Data--> Controller
+DB --> Controller
+```
+## ER図
+```mermaid
+erDiagram  
+ User  ||--o{  Contents  : contains  
+ User  {  
+ int id
+ string name  
+ string email
+ date email_verified_at  
+ string password
+ string remember_token  
+ date created_at
+ date updated_at
+ }  
+ Contents 
+ Contents  {  
+ int id  
+ int user_id
+ string comment
+ string contents_info
+ date created_at
+ date updated_at
+ }  
+ ```
+## 改修余地
+- フォームValidationロジックの分離(Form Request利用)
+- 個別のエラーページ作成
+- デート形のフォーマット変更
+- デザイン
+-  view側をblade以外FW使用
+
+## Ref
+- https://laravel.com/docs/5.8
+- youtube検索
+- google検索
 ## License
 
 The Laravel framework is open-source software licensed under the [MIT license](https://opensource.org/licenses/MIT).
