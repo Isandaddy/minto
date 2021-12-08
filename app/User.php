@@ -38,6 +38,15 @@ class User extends Authenticatable
     ];
 
     /**
+     * 全てのユーザーを返す
+     * @return object
+     */
+    // public function getAllUser()
+    // {
+    //     return User::all();
+    // }
+
+    /**
      * user_idにマッチしたユーザーを返す
      * @param int id
      * @return object

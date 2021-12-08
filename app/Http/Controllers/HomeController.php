@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Contents;
 use Illuminate\Http\Request;
-use App\User;
+//use App\User;
 
 class HomeController extends Controller
 {
@@ -16,6 +16,7 @@ class HomeController extends Controller
     public function __construct(Contents $contents)
     {
         $this->contents = $contents;
+        //$this->users = $users;
     }
 
     /**
@@ -26,7 +27,8 @@ class HomeController extends Controller
     public function index()
     {
         $contents = $this->contents->getAllContents();
-
+        //$users = $this->users->getAllUser();
         return view('home', ['contents' => $contents]);
+        //return view('home', compact('contents', 'users'));
     }
 }

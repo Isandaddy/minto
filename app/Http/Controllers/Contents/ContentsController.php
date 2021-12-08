@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Contents;
 //use App\Http\Requests\StoreContents;
 use App\Services\ContentService;
+use App\Services\UserService;
 
 class ContentsController extends Controller
 {
@@ -17,10 +18,11 @@ class ContentsController extends Controller
      *
      * @return void
      */
-    public function __construct(Contents $contents, ContentService $contents_service)
+    public function __construct(Contents $contents, ContentService $contents_service, UserService $user_service)
     {
         $this->contents = $contents;
         $this->contents_service = $contents_service;
+        $this->user_service = $user_service;
     }
 
     /**
@@ -32,8 +34,8 @@ class ContentsController extends Controller
     {
         $contents = $this->contents->getContentsDetailByContentsId($id);
 
+        //contentがなかったらホームに戻る
         if (is_null($contents)) {
-
             return redirect(route('home'));
         }
 
@@ -44,8 +46,13 @@ class ContentsController extends Controller
      * ログインしたユーザーの画像投稿画面を表示
      * @return view
      */
-    public function showImageContribution()
+    public function showImageContribution($id)
     {
+        $checked = $this->user_service->checkUserId($id);
+        //ログインしてないユーザーが接近するとホームに戻る
+        if (!$checked) {
+            return redirect(route('home'));
+        }
         return view('contents.imageContribution');
     }
 
@@ -89,8 +96,13 @@ class ContentsController extends Controller
      * ログインしたユーザーの画像アップロードページを表示
      * @return view
      */
-    public function showImageUpload()
+    public function showImageUpload($id)
     {
+        $checked = $this->user_service->checkUserId($id);
+        //ログインしてないユーザーが接近するとホームに戻る
+        if (!$checked) {
+            return redirect(route('home'));
+        }
         return view('contents.imageUpload');
     }
 
@@ -134,8 +146,13 @@ class ContentsController extends Controller
      * ログインしたユーザーの画像投稿画面を表示
      * @return view
      */
-    public function showVideoContribution()
+    public function showVideoContribution($id)
     {
+        $checked = $this->user_service->checkUserId($id);
+        //ログインしてないユーザーが接近するとホームに戻る
+        if (!$checked) {
+            return redirect(route('home'));
+        }
         return view('contents.videoContribution');
     }
 

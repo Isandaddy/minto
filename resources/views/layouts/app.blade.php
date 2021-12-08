@@ -24,15 +24,15 @@
 
 <body>
     <div id="app">
-        <header class="header">
+        <header class="navbar navbar-inverse navbar-fixed-top">
             <h1>
-                <a class="header__title" href="{{ url('/') }}">
+                <a class="navbar-header" href="{{ url('/') }}">
                     Minto
                 </a>
             </h1>
         </header>
 
-        <main class="main">
+        <main class="container-fluid">
             @yield('main')
         </main>
     </div>

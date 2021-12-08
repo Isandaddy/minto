@@ -1,15 +1,15 @@
-<section class="auth__container">
+<section class="container">
     @guest
-    <div class="auth__title">
+    <h3 class="auth__title">
         Sign in
-    </div>
+    </h3>
 
     <form method="POST" action="{{ route('login') }}">
         @csrf
 
-        <label for="email">{{ __('E-Mail Address') }}</label>
+        <label class="label label-primary" for="email">{{ __('E-Mail Address') }}</label>
 
-        <div class="col-md-6">
+        <div class="form-group">
             <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" autocomplete="email" autofocus>
 
             @error('email')
@@ -19,9 +19,9 @@
             @enderror
         </div>
 
-        <label for="password">{{ __('Password') }}</label>
+        <label class="label label-primary" for="password">{{ __('Password') }}</label>
 
-        <div class="col-md-6">
+        <div class="form-group">
             <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" autocomplete="current-password">
 
             @error('password')
@@ -29,14 +29,6 @@
                 <small>{{ $message }}</small>
             </p>
             @enderror
-        </div>
-
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-            <label class="form-check-label" for="remember">
-                {{ __('Remember Me') }}
-            </label>
         </div>
 
         <button type="submit" class="btn btn-primary">
@@ -47,17 +39,20 @@
     </form>
     @endguest
 
+    <!-- ログインしたら表示する -->
     @auth
+    <div class="row-vh d-flex flex-column">
+        <h5 class="auth__title"><mark>{{Auth::user()->name}}</mark>さんようこそ！</h5>
+        <a class="btn btn-primary btn-space" href="/contents/{{Auth::user()->id}}/images/upload">画像をアップロード</a>
+        <a class="btn btn-primary btn-space" href="/contents/{{Auth::user()->id}}/images/contribution">画像を投稿</a>
+        <a class="btn btn-primary btn-space" href="/contents/{{Auth::user()->id}}/videos/contribution">動画を投稿</a>
 
-    <div class="auth__title">{{Auth::user()->name}}さんようこそ！</div>
-    <button><a href="/contents/{{Auth::user()->id}}/images/upload">画像をアップロード</a></button>
-    <button><a href="/contents/{{Auth::user()->id}}/images/contribution">画像を投稿</a></button>
-    <button><a href="/contents/{{Auth::user()->id}}/videos/contribution">動画を投稿</a></button>
-
-    <button type="submit" onclick="document.querySelector('#logout-form').submit();">ログアウト</button>
-    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-        @csrf
-    </form>
+        <button class="btn btn-space" type="submit" onclick="document.querySelector('#logout-form').submit();">ログアウト</button>
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+            @csrf
+        </form>
+    </div>
 
     @endauth
+
 </section>

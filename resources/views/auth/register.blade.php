@@ -1,11 +1,12 @@
 @extends('layouts.app')
 
 @section('main')
-<div class="register_container">
-    <div class="card-header">{{ __('Register') }}</div>
-
+<div class="container">
+    <h3>{{ __('Register') }}</h3>
     <div class="card-body">
+
         <form method="POST" action="{{ route('register') }}">
+
             @csrf
 
             <div class="form-group row">
