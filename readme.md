@@ -155,6 +155,8 @@ erDiagram
 - デート形のフォーマット変更
 - デザイン
 -  view側をblade以外FW使用
+-  S3利用
+-  WEB公開
 
 ## Ref
 - https://laravel.com/docs/5.8
